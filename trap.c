@@ -13,6 +13,7 @@ struct gatedesc idt[256];
 extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
+struct proc *curproc;
 
 void
 tvinit(void)
@@ -77,6 +78,14 @@ trap(struct trapframe *tf)
             cpuid(), tf->cs, tf->eip);
     lapiceoi();
     break;
+  case T_PGFLT:
+      curproc = myproc();
+      cprintf("Page fault\n");
+      if (rcr2() <= TOPOFSTACK - (curproc->stacksize * PGSIZE)) {
+        allocuvm(curproc -> pgdir, PGROUNDDOWN(rcr2()), rcr2());
+        curproc -> stacksize++;
+      }
+      break;
 
   //PAGEBREAK: 13
   default:

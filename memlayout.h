@@ -7,7 +7,7 @@
 // Key addresses for address space layout (see kmap in vm.c for layout)
 #define KERNBASE 0x80000000         // First kernel virtual address
 
-#define USERMEM 0x7FFFFFFF // Lab3
+#define TOPOFSTACK 0x7FFFFFFF // Lab3
 
 #define KERNLINK (KERNBASE+EXTMEM)  // Address where kernel is linked
 
