@@ -337,7 +337,7 @@ copyuvm(pde_t *pgdir, uint sz, uint stacksize)
       goto bad;
   }
 
-  for(i = PGROUNDUP(TOPOFSTACK - (stacksize*PGSIZE)); i < TOPOFSTACK; i += PGSIZE){ 
+  for(i = PGROUNDUP(TOPOFSTACK - (stacksize*PGSIZE)); i < TOPOFSTACK; i += PGSIZE){ //Lab3
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
       panic("copyuvm: pte should exist2");
     if(!(*pte & PTE_P))

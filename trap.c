@@ -79,7 +79,7 @@ trap(struct trapframe *tf)
             cpuid(), tf->cs, tf->eip);
     lapiceoi();
     break;
-  case T_PGFLT:
+  case T_PGFLT: //Lab3
       curproc = myproc();
       fault = rcr2();
       if (fault > TOPOFSTACK) {

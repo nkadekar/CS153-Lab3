@@ -53,7 +53,7 @@ argint(int n, int *ip)
 // to a block of memory of size bytes.  Check that the pointer
 // lies within the process address space.
 int
-argptr(int n, char **pp, int size)
+argptr(int n, char **pp, int size) //Lab3
 {
   int i;
   if(argint(n, &i) < 0)
