@@ -12,10 +12,10 @@ inline void recursiveTest(int n){
 
 inline void stackLocation(){
     printf(1, "TESTING - STACK LOCATION\n");
-    int* p = 0;
+    int* p = malloc(2);
     int* o = 0;
-    printf(1, "Pointer 1 is currently at: %x\n", &p);
-    printf(1, "Pointer 2 is currently at: %x\n", &o);
+    printf(1, "Heap pointer is currently at: %x\n", p);
+    printf(1, "Stack pointer is currently at: %x\n", &o);
     return;
 }
 
