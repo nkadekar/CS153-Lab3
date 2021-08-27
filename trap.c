@@ -91,7 +91,7 @@ trap(struct trapframe *tf)
       }
       else{
         curproc->stacksize += 1;
-        cprintf("Page fault, Number of pages: %d\n", curproc->stacksize);
+        cprintf("Page fault, Number of pages: %d, New Page At: 0x%x,\n", curproc->stacksize, fault);
       }
      break;
 
