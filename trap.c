@@ -14,6 +14,7 @@ extern uint vectors[];  // in vectors.S: array of 256 entry pointers
 struct spinlock tickslock;
 uint ticks;
 struct proc *curproc;
+uint fault;
 
 void
 tvinit(void)
@@ -80,12 +81,19 @@ trap(struct trapframe *tf)
     break;
   case T_PGFLT:
       curproc = myproc();
-      cprintf("Page fault\n");
-      if (rcr2() <= TOPOFSTACK - (curproc->stacksize * PGSIZE)) {
-        allocuvm(curproc -> pgdir, PGROUNDDOWN(rcr2()), rcr2());
-        curproc -> stacksize++;
+      fault = rcr2();
+      if (fault > TOPOFSTACK) {
+        exit();
       }
-      break;
+      if(allocuvm(curproc->pgdir, PGROUNDDOWN(fault), fault) == 0){
+        cprintf("Page fault, Allocuvm failed, Current number of pages: %d\n", curproc->stacksize);
+        exit();
+      }
+      else{
+        curproc->stacksize += 1;
+        cprintf("Page fault, Number of pages: %d\n", curproc->stacksize);
+      }
+     break;
 
   //PAGEBREAK: 13
   default:
