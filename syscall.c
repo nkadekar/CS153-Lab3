@@ -17,8 +17,6 @@
 int
 fetchint(uint addr, int *ip)
 {
-  // struct proc *curproc = myproc(); //Lab3
-
   if(addr >= TOPOFSTACK || addr+4 > TOPOFSTACK) //Lab3
     return -1;
   *ip = *(int*)(addr);
@@ -32,7 +30,6 @@ int
 fetchstr(uint addr, char **pp)
 {
   char *s, *ep;
-  // struct proc *curproc = myproc(); //Lab3
 
   if(addr >= TOPOFSTACK) //Lab3
     return -1;
@@ -59,8 +56,6 @@ int
 argptr(int n, char **pp, int size)
 {
   int i;
-  // struct proc *curproc = myproc(); //Lab3
- 
   if(argint(n, &i) < 0)
     return -1;
   if(size < 0 || (uint)i >= TOPOFSTACK || (uint)i+size > TOPOFSTACK) //Lab3

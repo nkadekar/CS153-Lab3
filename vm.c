@@ -323,7 +323,6 @@ copyuvm(pde_t *pgdir, uint sz, uint stacksize)
   if((d = setupkvm()) == 0)
     return 0;
 
-  // cprintf( "%d\n", PGROUNDUP(TOPOFSTACK - PGSIZE));
   for(i = 0; i < sz; i += PGSIZE){
     if((pte = walkpgdir(pgdir, (void *) i, 0)) == 0)
       panic("copyuvm: pte should exist");
